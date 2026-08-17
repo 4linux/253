@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}{% endblock %}
+{% block content %}
+
+<section class="cartao">
+  <h2>Extração (produção)</h2>
+  <p class="secundario">
+    Extrai os campos de uma nota usando <strong>um único backend</strong>,
+    o mesmo que estaria configurado num ambiente real.
+  </p>
+  <p class="rodape-info">Backend ativo: <code>{{ backend_ativo }}</code> (variável <code>BACKEND_ATIVO</code>)</p>
+  <a class="botao" href="{{ url_for('extrair_form') }}">Ir para extração</a>
+</section>
+
+<section class="cartao">
+  <h2>Comparativo (avaliação)</h2>
+  <p class="secundario">
+    Roda a mesma nota nos dois backends (LLM proprietária e SLM local) e
+    compara os resultados campo a campo — ferramenta de avaliação, não é
+    como a aplicação atenderia um usuário real.
+  </p>
+  <a class="botao botao-secundario" href="{{ url_for('comparativo_form') }}">Ir para comparativo</a>
+</section>
+
+{% endblock %}

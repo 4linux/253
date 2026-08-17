@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %} — Resumo do comparativo{% endblock %}
+{% block content %}
+
+<a class="voltar" href="{{ url_for('comparativo_form') }}">&larr; voltar</a>
+
+{% if erro %}
+<div class="aviso-erro">{{ erro }}</div>
+{% endif %}
+
+{% if resumo %}
+<section class="cartao">
+  <h2>Resumo final ({{ resumo.total }} notas)</h2>
+  <div class="metricas">
+    <div class="metrica">
+      <div class="rotulo">Custo total (proprietária / SLM)</div>
+      <div class="valor-grande">R$ {{ "%.4f"|format(resumo.custo_prop) }} / R$ {{ "%.4f"|format(resumo.custo_slm) }}</div>
+    </div>
+    <div class="metrica">
+      <div class="rotulo">Latência média (proprietária / SLM)</div>
+      <div class="valor-grande">{{ "%.2f"|format(resumo.latencia_prop) }}s / {{ "%.2f"|format(resumo.latencia_slm) }}s</div>
+    </div>
+    <div class="metrica">
+      <div class="rotulo">Acurácia média do SLM</div>
+      <div class="valor-grande">{{ "%.1f"|format(resumo.taxa_media * 100) }}%</div>
+    </div>
+  </div>
+
+  {% set economia = resumo.custo_prop - resumo.custo_slm %}
+  <div class="economia">
+    Economia estimada rodando localmente: <strong>R$ {{ "%.4f"|format(economia) }}</strong>
+    ({{ "%.1f"|format((economia / resumo.custo_prop * 100) if resumo.custo_prop else 0) }}%
+    do custo da LLM proprietária)
+  </div>
+</section>
+
+<section class="cartao">
+  <h2>Detalhe por nota</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Nota</th>
+        <th>Acurácia</th>
+        <th>Latência prop.</th>
+        <th>Latência SLM</th>
+        <th>Custo prop.</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for r in resultados %}
+      <tr>
+        <td>#{{ r.nota.id }} — {{ r.nota.gabarito.numero }}</td>
+        <td class="valor">{{ r.comparacao.acertos }}/{{ r.comparacao.total }} ({{ "%.0f"|format(r.comparacao.taxa_acerto * 100) }}%)</td>
+        <td class="valor">{{ r.prop.latencia_s }}s</td>
+        <td class="valor">{{ r.slm.latencia_s }}s</td>
+        <td class="valor">R$ {{ "%.4f"|format(r.prop.custo_brl) }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endif %}
+
+{% endblock %}

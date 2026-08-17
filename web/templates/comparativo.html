@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %} — Comparativo{% endblock %}
+{% block content %}
+
+<a class="voltar" href="{{ url_for('index') }}">&larr; voltar</a>
+
+<section class="cartao">
+  <h2>Comparar uma nota</h2>
+  <p class="secundario">
+    Roda a mesma nota nos dois backends e mostra os dois resultados lado a
+    lado — ferramenta de avaliação, não o fluxo de produção.
+  </p>
+  <form method="post" action="{{ url_for('comparativo_resultado') }}">
+    <label for="nota_id">Nota de exemplo</label>
+    <select name="nota_id" id="nota_id">
+      {% for n in notas %}
+      <option value="{{ n.id }}">Nota #{{ n.id }} — {{ n.gabarito.numero }} ({{ n.gabarito.emitente }})</option>
+      {% endfor %}
+    </select>
+
+    <label for="texto_custom">...ou cole um texto de nota fiscal (opcional — sobrescreve a escolha acima)</label>
+    <textarea name="texto_custom" id="texto_custom" rows="6" placeholder="Cole aqui o texto vindo de OCR de uma nota fiscal real..."></textarea>
+
+    <button type="submit">Comparar</button>
+  </form>
+</section>
+
+<section class="cartao">
+  <h2>Rodar o dataset completo</h2>
+  <p class="secundario">
+    Processa as {{ notas|length }} notas nos dois backends e mostra o resumo agregado
+    (custo, latência, acurácia). Pode levar alguns minutos.
+  </p>
+  <form method="post" action="{{ url_for('comparativo_resumo') }}">
+    <button type="submit" class="botao-secundario">Rodar todas as {{ notas|length }} notas</button>
+  </form>
+</section>
+
+<p class="rodape-info">Backend proprietário ativo (lado "proprietária" do comparativo): <code>{{ provider }}</code></p>
+
+{% endblock %}

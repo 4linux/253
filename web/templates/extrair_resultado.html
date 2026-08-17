@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %} — {{ nota_label }}{% endblock %}
+{% block content %}
+
+<a class="voltar" href="{{ url_for('extrair_form') }}">&larr; voltar</a>
+
+<section class="cartao">
+  <h2>{{ nota_label }}</h2>
+  <p class="rodape-info">Backend ativo: <code>{{ backend_ativo }}</code></p>
+  <label>Texto enviado (OCR)</label>
+  <pre class="texto-ocr">{{ texto_ocr }}</pre>
+</section>
+
+{% if erro %}
+<div class="aviso-erro">{{ erro }}</div>
+{% else %}
+
+<section class="cartao">
+  <h2>Campos extraídos</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Campo</th>
+        <th>Valor</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for campo in campos %}
+      <tr>
+        <td>{{ campo }}</td>
+        <td class="valor">{{ resultado.campos.get(campo) }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+
+<div class="metricas">
+  <div class="metrica">
+    <div class="rotulo">Modelo</div>
+    <div class="valor-grande">{{ resultado.model }}</div>
+  </div>
+  <div class="metrica">
+    <div class="rotulo">Latência</div>
+    <div class="valor-grande">{{ resultado.latencia_s }}s</div>
+  </div>
+  <div class="metrica">
+    <div class="rotulo">Custo</div>
+    <div class="valor-grande">R$ {{ "%.4f"|format(resultado.custo_brl) }}</div>
+  </div>
+</div>
+
+{% endif %}
+{% endblock %}

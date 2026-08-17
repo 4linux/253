@@ -1,0 +1,19 @@
+# Ambiente Python
+.venv/
+__pycache__/
+*.pyc
+
+# Dataset gerado em runtime (reprodutível via dataset/gerar_notas.py)
+dataset/notas_fiscais.json
+
+# Fine-tuning: artefatos pesados e especificos de cada treino/maquina —
+# cada aluno gera os seus. Nao versionar.
+finetune/dataset_treino/
+finetune/saida/
+finetune/__pycache__/
+
+# Clone temporario feito ao seguir finetune/exportar_para_ollama.md
+llama.cpp/
+
+# Segredos
+.env

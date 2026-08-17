@@ -1,0 +1,301 @@
+/* Paleta extraida do logo oficial da 4Linux (imgs/logo-4linux.png) */
+:root {
+  --teal: #12d7d3;
+  --preto: #0a0a0a;
+  --branco: #ffffff;
+  --cinza: #757575;
+  --cinza-claro: #e4e4e4;
+  --fundo: #fafafa;
+  --fonte: -apple-system, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --mono: "SF Mono", "Consolas", "Menlo", monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--fundo);
+  color: var(--preto);
+  font-family: var(--fonte);
+  line-height: 1.5;
+}
+
+header.topo {
+  border-bottom: 2px solid var(--preto);
+  padding: 1.5rem 2rem;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.marca-bloco {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+}
+
+.marca {
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.marca .ponto {
+  color: var(--teal);
+}
+
+.subtitulo {
+  color: var(--cinza);
+  font-size: 0.95rem;
+}
+
+.selo {
+  color: var(--cinza);
+  font-size: 0.75rem;
+  border: 1px solid var(--cinza-claro);
+  border-radius: 3px;
+  padding: 0.2rem 0.5rem;
+  white-space: nowrap;
+}
+
+main {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 4rem;
+}
+
+.cartao {
+  border: 1px solid var(--cinza-claro);
+  border-radius: 6px;
+  padding: 1.75rem;
+  margin-bottom: 1.5rem;
+  background: var(--branco);
+}
+
+.cartao h2 {
+  margin-top: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+label {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--cinza);
+  margin: 1rem 0 0.35rem;
+}
+
+select,
+textarea {
+  width: 100%;
+  padding: 0.6rem 0.7rem;
+  border: 1px solid var(--cinza-claro);
+  border-radius: 4px;
+  font-family: var(--fonte);
+  font-size: 0.95rem;
+  background: var(--fundo);
+  color: var(--preto);
+}
+
+textarea {
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  resize: vertical;
+}
+
+button {
+  margin-top: 1.25rem;
+  padding: 0.65rem 1.4rem;
+  border: none;
+  border-radius: 4px;
+  background: var(--preto);
+  color: var(--branco);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+button:hover {
+  background: var(--teal);
+  color: var(--preto);
+}
+
+button.botao-secundario {
+  background: var(--branco);
+  color: var(--preto);
+  border: 1px solid var(--preto);
+}
+
+button.botao-secundario:hover {
+  border-color: var(--teal);
+  background: var(--fundo);
+  color: var(--preto);
+}
+
+a.botao {
+  display: inline-block;
+  margin-top: 1.25rem;
+  padding: 0.65rem 1.4rem;
+  border-radius: 4px;
+  background: var(--preto);
+  color: var(--branco) !important;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+a.botao:hover {
+  background: var(--teal);
+  color: var(--preto) !important;
+}
+
+a.botao.botao-secundario {
+  background: var(--branco);
+  color: var(--preto) !important;
+  border: 1px solid var(--preto);
+}
+
+a.botao.botao-secundario:hover {
+  border-color: var(--teal);
+}
+
+.secundario {
+  color: var(--cinza);
+  font-size: 0.9rem;
+}
+
+.rodape-info {
+  color: var(--cinza);
+  font-size: 0.85rem;
+}
+
+.rodape-info code {
+  background: var(--fundo);
+  border: 1px solid var(--cinza-claro);
+  border-radius: 3px;
+  padding: 0.1rem 0.4rem;
+  font-family: var(--mono);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  font-size: 0.9rem;
+}
+
+th,
+td {
+  border: 1px solid var(--cinza-claro);
+  padding: 0.55rem 0.7rem;
+  text-align: left;
+}
+
+th {
+  background: var(--fundo);
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--cinza);
+}
+
+td.valor {
+  font-family: var(--mono);
+  font-size: 0.85rem;
+}
+
+td.centro {
+  text-align: center;
+}
+
+.ok {
+  color: #1a7f37;
+  font-weight: 700;
+}
+
+.falha {
+  color: #c0362c;
+  font-weight: 700;
+}
+
+.destaque {
+  color: var(--teal);
+  font-weight: 700;
+}
+
+.metricas {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.metrica {
+  border: 1px solid var(--cinza-claro);
+  border-radius: 6px;
+  padding: 1rem;
+  background: var(--branco);
+}
+
+.metrica .rotulo {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--cinza);
+}
+
+.metrica .valor-grande {
+  font-family: var(--mono);
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-top: 0.25rem;
+}
+
+.aviso-erro {
+  border: 1px solid #c0362c;
+  background: #fdf1f0;
+  color: #c0362c;
+  border-radius: 6px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.economia {
+  border: 1px solid var(--teal);
+  border-radius: 6px;
+  padding: 1rem 1.25rem;
+  color: var(--preto);
+  font-size: 0.95rem;
+}
+
+pre.texto-ocr {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  background: var(--fundo);
+  border: 1px solid var(--cinza-claro);
+  border-radius: 4px;
+  padding: 1rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+a.voltar {
+  color: var(--cinza);
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+a.voltar:hover {
+  color: var(--preto);
+}
+
+footer {
+  text-align: center;
+  color: var(--cinza);
+  font-size: 0.8rem;
+  padding: 2rem 0;
+}

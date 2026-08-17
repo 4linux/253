@@ -1,0 +1,38 @@
+services:
+  ollama:
+    image: ollama/ollama:latest
+    container_name: slm-ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama-data:/root/.ollama
+    restart: unless-stopped
+
+  finetune:
+    build:
+      context: ./finetune
+      dockerfile: Dockerfile
+    container_name: slm-finetune
+    volumes:
+      - .:/workspace
+      - ${HOME}/.cache/huggingface:/root/.cache/huggingface
+    working_dir: /workspace
+    environment:
+      # limite de threads do torch/OpenMP tem que bater com o limite de CPU
+      # abaixo — sem isso o torch tenta usar TODOS os cores do host (mesmo
+      # dentro do container) e o "cpus:" so throttla, nao evita a contencao.
+      - FINETUNE_NUM_THREADS=${FINETUNE_CPUS:-2}
+      - OMP_NUM_THREADS=${FINETUNE_CPUS:-2}
+      - MKL_NUM_THREADS=${FINETUNE_CPUS:-2}
+    deploy:
+      resources:
+        limits:
+          # deixa a maquina do aluno utilizavel enquanto treina — ajuste via
+          # `FINETUNE_CPUS=4 docker compose run ...` se tiver mais nucleos livres
+          cpus: "${FINETUNE_CPUS:-2}"
+          memory: 8g
+    # nao roda nada sozinho — e so pra `docker compose run --rm finetune <comando>`
+    profiles: ["finetune"]
+
+volumes:
+  ollama-data:

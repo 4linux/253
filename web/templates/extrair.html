@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %} — Extração{% endblock %}
+{% block content %}
+
+<a class="voltar" href="{{ url_for('index') }}">&larr; voltar</a>
+
+<section class="cartao">
+  <h2>Extração de nota fiscal</h2>
+  <p class="secundario">
+    Este fluxo usa <strong>um único backend</strong>, o mesmo que rodaria
+    em produção — sem comparação, sem custo/latência duplicados.
+  </p>
+  <p class="rodape-info">Backend ativo: <code>{{ backend_ativo }}</code></p>
+
+  <form method="post" action="{{ url_for('extrair_view') }}">
+    <label for="nota_id">Nota de exemplo</label>
+    <select name="nota_id" id="nota_id">
+      {% for n in notas %}
+      <option value="{{ n.id }}">Nota #{{ n.id }} — {{ n.gabarito.numero }} ({{ n.gabarito.emitente }})</option>
+      {% endfor %}
+    </select>
+
+    <label for="texto_custom">...ou cole um texto de nota fiscal (opcional — sobrescreve a escolha acima)</label>
+    <textarea name="texto_custom" id="texto_custom" rows="6" placeholder="Cole aqui o texto vindo de OCR de uma nota fiscal real..."></textarea>
+
+    <button type="submit">Extrair</button>
+  </form>
+</section>
+
+{% endblock %}

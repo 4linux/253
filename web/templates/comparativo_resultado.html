@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %} — {{ nota_label }}{% endblock %}
+{% block content %}
+
+<a class="voltar" href="{{ url_for('comparativo_form') }}">&larr; voltar</a>
+
+<section class="cartao">
+  <h2>{{ nota_label }}</h2>
+  <label>Texto enviado (OCR)</label>
+  <pre class="texto-ocr">{{ texto_ocr }}</pre>
+</section>
+
+{% if erro %}
+<div class="aviso-erro">{{ erro }}</div>
+{% else %}
+
+<section class="cartao">
+  <h2>Comparação campo a campo</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Campo</th>
+        <th>Proprietária ({{ resultado_prop.model }})</th>
+        <th>SLM ({{ resultado_slm.model }})</th>
+        <th>Bateu?</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for campo in campos %}
+      {% set c = comparacao.campos[campo] %}
+      <tr>
+        <td>{{ campo }}</td>
+        <td class="valor">{{ c.proprietario }}</td>
+        <td class="valor">{{ c.slm }}</td>
+        <td class="centro">
+          {% if c.bateu %}<span class="ok">✔</span>{% else %}<span class="falha">✘</span>{% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+
+<div class="metricas">
+  <div class="metrica">
+    <div class="rotulo">Acurácia campo a campo</div>
+    <div class="valor-grande">{{ comparacao.acertos }}/{{ comparacao.total }} ({{ "%.0f"|format(comparacao.taxa_acerto * 100) }}%)</div>
+  </div>
+  <div class="metrica">
+    <div class="rotulo">Latência (proprietária / SLM)</div>
+    <div class="valor-grande">{{ resultado_prop.latencia_s }}s / {{ resultado_slm.latencia_s }}s</div>
+  </div>
+  <div class="metrica">
+    <div class="rotulo">Custo (proprietária / SLM)</div>
+    <div class="valor-grande">R$ {{ "%.4f"|format(resultado_prop.custo_brl) }} / R$ {{ "%.4f"|format(resultado_slm.custo_brl) }}</div>
+  </div>
+</div>
+
+{% endif %}
+{% endblock %}
